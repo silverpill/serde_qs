@@ -279,7 +279,7 @@ impl<'a, W: 'a + Write> QsSerializer<'a, W> {
             write!(
                 self.writer,
                 "{}{}={}",
-                amp.then_some("&").unwrap_or_default(),
+                amp.then(|| "&").unwrap_or_default(),
                 key,
                 percent_encode(value, QS_ENCODE_SET)
                     .map(replace_space)
@@ -297,13 +297,13 @@ impl<'a, W: 'a + Write> QsSerializer<'a, W> {
             write!(
                 self.writer,
                 "{}{}=",
-                amp.then_some("&").unwrap_or_default(),
+                amp.then(|| "&").unwrap_or_default(),
                 key,
             )
             .map_err(Error::from)
         } else {
             // For top level unit types
-            write!(self.writer, "{}", amp.then_some("&").unwrap_or_default(),).map_err(Error::from)
+            write!(self.writer, "{}", amp.then(|| "&").unwrap_or_default(),).map_err(Error::from)
         }
     }
 
