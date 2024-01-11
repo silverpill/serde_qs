@@ -264,10 +264,8 @@ impl Default for QsQueryConfig {
 #[derive(Debug)]
 pub struct QsForm<T>(T);
 
-// let foo: T = QsQuery<T>.into_inner()
-impl<T> IntoInner<T> for QsForm<T> {
-    /// Unwrap into inner T value
-    fn into_inner(self) -> T {
+impl<T> QsForm<T> {
+    pub fn into_inner(self) -> T {
         self.0
     }
 }
